@@ -38,6 +38,21 @@ What you see in the picture:
 
 Jack and header heights are typical catalogue values; check them against the parts you buy before designing an enclosure.
 
+## How to start (Arduino)
+
+<p align="center">
+  <img src="Images/easyexg_arduino.gif" alt="How to connect EasyEXG to Arduino and read EMG" width="800">
+</p>
+
+1. **Wire J3 to the Arduino** with 3 jumper wires: **GND → GND**, **VCC → 5V**, **OUT → A0**. Leave VREF unconnected.
+2. **Place the electrodes** (EMG on the forearm): IN+ and IN− on the muscle, 2–3 cm apart, and REF on a bony spot such as the elbow.
+   Plug the electrode cable into the 3.5 mm jack J1. Leave JP1 open for EMG; bridge it for ECG.
+3. **Upload the sketch** [`EasyEXG_Arduino.ino`](Arduino/EasyEXG_Arduino/EasyEXG_Arduino.ino) with the Arduino IDE.
+4. **Open Tools → Serial Plotter** at **115200 baud** and clench your fist. You will see bursts on the blue trace (signal)
+   and a rising yellow trace (envelope); when you relax, both go flat.
+
+> ⚠️ Power the Arduino from a laptop running on battery (charger unplugged) while electrodes are on a person.
+
 ## Amplifier design and verification
 
 The amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388).
