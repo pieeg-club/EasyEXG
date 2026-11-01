@@ -104,3 +104,10 @@ R9 stays at 390 kΩ, which limits the current into the body to about 13 µA at 5
 
 > Simulations use idealised electrode (51 kΩ ∥ 47 nF) and body (200 pF mains coupling) models, so real hum levels
 > will differ. This is a hobby / research board, not a medical device.
+
+
+> [!WARNING]
+> PiEEG-8 is **not a medical device** and has not been certified by any regulator for use with the human body. It is a tool for research, education and engineering. You use it at your own risk.
+
+> [!CAUTION]
+> **Battery only.** The Raspberry Pi, the shield and everything cabled to them (monitor, keyboard) must run from a **5 V power bank** while electrodes are on a person. Never use a wall charger or a mains-powered monitor or computer. The board has **no isolation**. Read the [Safety page](https://docs.pieeg.com/hardware/devices/pieeg-8/safety/) and the [liability notice](https://pieeg.com/liability/).
