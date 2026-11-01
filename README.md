@@ -40,17 +40,15 @@ Jack and header heights are typical catalogue values; check them against the par
 
 ## Amplifier design and verification
 
-The amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388) and compared with the
-[BioAmp EXG Pill](https://github.com/upsidedownlabs/BioAmp-EXG-Pill) by Upside Down Labs, rebuilt with an OPA4388.
+The amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388).
 
 <p align="center">
   <img src="Images/amp_response.png" alt="Simulated gain versus frequency" width="900">
 </p>
 
-*Simulated total gain versus frequency. Solid lines: EasyEXG with JP1 open (blue, 221×) and JP1 bridged (green, 1 048×).
-Dashed lines: BioAmp EXG Pill with an OPA4388, JP1 open (red) and closed (orange). Shaded areas mark the ECG band
-(0.5–40 Hz) and the EMG band (20–450 Hz). EasyEXG has a flat gain across both bands, from 0.16 Hz to 500 Hz,
-and rolls off steeply above 500 Hz.*
+*Simulated total gain versus frequency. Blue: JP1 open (221×, for EMG and EOG). Green: JP1 bridged (1 048×, for ECG and EEG).
+Shaded areas mark the ECG band (0.5–40 Hz) and the EMG band (20–450 Hz). The gain is flat from 0.16 Hz to 500 Hz
+(dotted lines mark the −3 dB points) and rolls off steeply above 500 Hz.*
 
 ### Signal chain
 
@@ -75,32 +73,11 @@ and rolls off steeply above 500 Hz.*
 - ✅ The INA333 rejects mains hum with CMRR ≥ 100 dB.
 - ✅ The DRL loop is stable, with at most 2 dB of peaking (around 1.3–1.5 kHz).
 
-### Comparison with BioAmp EXG Pill (OPA4388 version)
-
-| | BioAmp EXG Pill (OPA4388) | EasyEXG |
-|---|---|---|
-| Input amplifier | Two-op-amp INA, 11× | INA333, 9.9× |
-| Mains-hum rejection (CMRR) | ≈ 50 dB (set by 1 % resistor matching) | ≥ 100 dB |
-| Total gain, EMG setting | 1 976× (JP1 closed) | 221× (JP1 open) |
-| Total gain, high setting | 10 760× (JP1 open) | 1 048× (JP1 bridged) |
-| Band, EMG setting | 3.3–891 Hz | 0.16–501 Hz |
-| Band, high setting | 3.2–171 Hz | 0.16–501 Hz |
-| Max EMG input before clipping (5 V) | 1.2 mV | 10.9 mV |
-| Reference electrode | Buffered VCC/2, 0 Ω | Driven right leg, 390 kΩ |
-| 50 Hz common mode at input (simulated) | −51.9 dB | −55.3 dB (with R8 = 10 MΩ) |
-
-Notes on the BioAmp OPA4388 version:
-
-- Bridge **JP1** for EMG and ECG. With JP1 open the gain is 10 760×, which suits EEG; EMG and ECG signals will saturate.
-- Keep **VCC ≤ 5.5 V**. The original TL074H accepts up to 40 V; the OPA4388 does not.
-- **R11** is 0 Ω, connecting the op-amp output directly to the body. 1–10 kΩ is safer and keeps the op-amp stable when it drives the electrode cable.
-- The 3.2 Hz high-pass is fine for heart rate and EMG, but it distorts the slow parts of the ECG waveform.
-
 ### Design note: R8 = 10 MΩ
 
 R8 (DRL feedback resistor) is **10 MΩ** (Yageo RC0603FR-0710ML, the same part as R3 and R4).
-With 1 MΩ the right-leg drive is too weak: simulated 50 Hz common mode at the input is −46.8 dB, slightly worse
-than a plain direct reference (−51.9 dB). With 10 MΩ it improves to **−55.3 dB**, with peaking still below +2 dB.
+With 1 MΩ the right-leg drive is too weak: simulated 50 Hz common mode at the input is −46.8 dB. With 10 MΩ it
+improves to **−55.3 dB**, with peaking still below +2 dB.
 R9 stays at 390 kΩ, which limits the current into the body to about 13 µA at 5 V.
 
 ## Operating notes
@@ -111,4 +88,4 @@ R9 stays at 390 kΩ, which limits the current into the body to about 13 µA at 5
 - Power from a battery or an isolated USB supply while electrodes are on a person.
 
 > Simulations use idealised electrode (51 kΩ ∥ 47 nF) and body (200 pF mains coupling) models, so real hum levels
-> will differ. The comparison between the circuits is still valid. This is a hobby / research board, not a medical device.
+> will differ. This is a hobby / research board, not a medical device.
