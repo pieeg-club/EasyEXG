@@ -1,0 +1,14 @@
+EasyEXG
+
+Copyright (c) 2026 [Copyright holder]
+
+The original hardware design files, schematics, PCB layouts, images, and documentation in this project are licensed under the Creative Commons Attribution–NonCommercial 4.0 International License (CC BY-NC 4.0), unless otherwise stated.
+
+You may share and adapt these materials for noncommercial purposes, provided you give appropriate credit, link to the license, and indicate any changes.
+
+Commercial use is not permitted under this license. For separate commercial permission, contact: pieeg@pieeg.com.
+
+The full license terms apply:
+https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+Third-party materials remain subject to their respective licenses.
