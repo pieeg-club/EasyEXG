@@ -48,6 +48,22 @@ Jack and header heights are typical catalogue values; check them against the par
   The output header **J3** carries GND · VCC · OUT · VREF; connect OUT to your microcontroller's ADC.
 - **Configuration:** one solder jumper, **JP1 "HI GAIN"**, sets the gain: open = **221×** (EMG, EOG), bridged = **1 048×** (ECG, EEG).
 
+## Electrode inputs
+
+<p align="center">
+  <img src="Images/easyexg_inputs.png" alt="Where IN+, IN− and REF are on the 3.5 mm jack J1 and the 3-pin header J2" width="100%">
+</p>
+
+Both connectors carry the same three signals; use **one at a time**.
+
+| Signal | J1 · 3.5 mm jack | J2 · 3 pins (silkscreen) |
+|:---:|:---:|:---:|
+| **IN+** | Tip | pin 1 · "+" (square pad) |
+| **IN−** | Ring | pin 2 · "−" |
+| **REF** | Sleeve | pin 3 · "REF" |
+
+Wire colours differ between electrode cables, so follow the plug position (Tip / Ring / Sleeve), not the colour.
+
 ## Applications
 
 Each animation shows where to place the three electrodes and the signal you should see.
