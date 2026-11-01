@@ -38,6 +38,39 @@ What you see in the picture:
 
 Jack and header heights are typical catalogue values; check them against the parts you buy before designing an enclosure.
 
+## Connection and configuration
+
+| Connection | Configuration |
+|:---:|:---:|
+| <img src="Images/easyexg_connection.png" alt="EasyEXG connection: electrode jack, electrode pins, output pins, mounting holes" width="100%"> | <img src="Images/easyexg_configuration.png" alt="EasyEXG configuration: gain jumper JP1, INA333, OPA4388, output pinout" width="100%"> |
+
+- **Connection:** electrodes go to the 3.5 mm jack **J1** (Tip = IN+, Ring = IN−, Sleeve = REF) or to the 3-pin header **J2**.
+  The output header **J3** carries GND · VCC · OUT · VREF; connect OUT to your microcontroller's ADC.
+- **Configuration:** one solder jumper, **JP1 "HI GAIN"**, sets the gain: open = **221×** (EMG, EOG), bridged = **1 048×** (ECG, EEG).
+
+## Applications
+
+Each animation shows where to place the three electrodes and the signal you should see.
+Electrode colours: **IN+** red · **IN−** yellow · **REF** green.
+
+| Muscle (EMG) | Heart (ECG) |
+|:---:|:---:|
+| <img src="Images/easyexg_app_emg.gif" alt="EMG on the forearm: bursts when the fist is clenched" width="100%"> | <img src="Images/easyexg_app_ecg.gif" alt="ECG Lead I on the chest: heartbeat waveform" width="100%"> |
+| **Eye, horizontal (EOG)** | **Eye, vertical (EOG)** |
+| <img src="Images/easyexg_app_eogh.gif" alt="Horizontal EOG: trace steps as the eyes look left and right" width="100%"> | <img src="Images/easyexg_app_eogv.gif" alt="Vertical EOG: steps for up and down, spikes for blinks" width="100%"> |
+| **Brain (EEG)** | **Quick start with Arduino** |
+| <img src="Images/easyexg_app_eeg.gif" alt="Frontal EEG: alpha rhythm grows when the eyes close" width="100%"> | <img src="Images/easyexg_arduino.gif" alt="How to connect EasyEXG to an Arduino" width="100%"> |
+
+| Signal | JP1 | Electrodes | Sample rate |
+|---|---|---|---|
+| EMG (forearm) | open · 221× | IN+ / IN− on the muscle 2–3 cm apart, REF on the elbow | 500–1000 Hz |
+| ECG (Lead I) | bridged · 1 048× | IN+ left chest, IN− right chest, REF right lower abdomen | 250–500 Hz |
+| EOG horizontal | open · 221× | outer corners of both eyes, REF on the forehead | 100–250 Hz |
+| EOG vertical | open · 221× | above and below one eye, REF on the forehead | 100–250 Hz |
+| EEG (Fp1) | bridged · 1 048× | IN+ forehead above the left eye, IN− left earlobe, REF mid-forehead | 250 Hz |
+
+*The waveforms in the animations are illustrations of typical signals, not recordings.*
+
 ## How to start (Arduino)
 
 <p align="center">
@@ -111,10 +144,10 @@ R9 stays at 390 kΩ, which limits the current into the body to about 13 µA at 5
 
 > [!CAUTION]
 > **Battery only.** EasyEXG and everything cabled to them (Arduino board etc) must run from a **5 V power bank** while electrodes are on a person. Never use a wall charger or a mains-powered monitor or computer. The board has **no isolation**. Read the [Safety page](https://docs.pieeg.com/hardware/devices/pieeg-8/safety/) and the [liability notice](https://pieeg.com/liability/).
->
-> ## License
 
-Project: **CC BY-NC 4.0 (Creative Commons Attribution–NonCommercial) **. Hardware use is subject to the BY-NC 4.0 Licence and the [PiEEG liability notice](https://pieeg.com/liability/).
+## License
+
+Project: **CC BY-NC 4.0 (Creative Commons Attribution–NonCommercial)**. Hardware use is subject to the BY-NC 4.0 Licence and the [PiEEG liability notice](https://pieeg.com/liability/).
 
 
 ## Contact
