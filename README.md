@@ -58,8 +58,12 @@ Electrode colours: **IN+** red · **IN−** yellow · **REF** green.
 | <img src="Images/easyexg_app_emg.gif" alt="EMG on the forearm: bursts when the fist is clenched" width="100%"> | <img src="Images/easyexg_app_ecg.gif" alt="ECG Lead I on the chest: heartbeat waveform" width="100%"> |
 | **Eye, horizontal (EOG)** | **Eye, vertical (EOG)** |
 | <img src="Images/easyexg_app_eogh.gif" alt="Horizontal EOG: trace steps as the eyes look left and right" width="100%"> | <img src="Images/easyexg_app_eogv.gif" alt="Vertical EOG: steps for up and down, spikes for blinks" width="100%"> |
-| **Brain (EEG)** | **Quick start with Arduino** |
-| <img src="Images/easyexg_app_eeg.gif" alt="Frontal EEG: alpha rhythm grows when the eyes close" width="100%"> | <img src="Images/easyexg_arduino.gif" alt="How to connect EasyEXG to an Arduino" width="100%"> |
+
+**Brain (EEG)**
+
+<p align="center">
+  <img src="Images/easyexg_app_eeg.gif" alt="Frontal EEG: alpha rhythm grows when the eyes close" width="49%">
+</p>
 
 | Signal | JP1 | Electrodes | Sample rate |
 |---|---|---|---|
@@ -73,9 +77,18 @@ Electrode colours: **IN+** red · **IN−** yellow · **REF** green.
 
 ## How to start (Arduino)
 
+The animation shows the four steps: wiring, electrodes, uploading the sketch, and reading the signal.
+
 <p align="center">
-  <img src="Images/easyexg_arduino.gif" alt="How to connect EasyEXG to Arduino and read EMG" width="800">
+  <img src="Images/easyexg_arduino.gif" alt="How to connect EasyEXG to Arduino and read EMG" width="100%">
 </p>
+
+| EasyEXG pin (J3) | Arduino pin | Wire colour in the animation |
+|:---:|:---:|:---:|
+| GND | GND | grey |
+| VCC | 5V (or 3.3V) | red |
+| OUT | A0 | yellow |
+| VREF | not connected | — |
 
 1. **Wire J3 to the Arduino** with 3 jumper wires: **GND → GND**, **VCC → 5V**, **OUT → A0**. Leave VREF unconnected.
 2. **Place the electrodes** (EMG on the forearm): IN+ and IN− on the muscle, 2–3 cm apart, and REF on a bony spot such as the elbow.
