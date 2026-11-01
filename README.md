@@ -111,3 +111,16 @@ R9 stays at 390 kΩ, which limits the current into the body to about 13 µA at 5
 
 > [!CAUTION]
 > **Battery only.** EasyEXG and everything cabled to them (Arduino board etc) must run from a **5 V power bank** while electrodes are on a person. Never use a wall charger or a mains-powered monitor or computer. The board has **no isolation**. Read the [Safety page](https://docs.pieeg.com/hardware/devices/pieeg-8/safety/) and the [liability notice](https://pieeg.com/liability/).
+>
+> ## License
+
+Project: **CC BY-NC 4.0 (Creative Commons Attribution–NonCommercial) **. Hardware use is subject to the BY-NC 4.0 Licence and the [PiEEG liability notice](https://pieeg.com/liability/).
+
+
+## Contact
+
+- 🌐 [pieeg.com](https://pieeg.com/)
+- 📖 [docs.pieeg.com](https://docs.pieeg.com/)
+- 💬 [Discord](https://discord.gg/5Ps24p47)
+- ✉️ [pieeg@pieeg.com](mailto:pieeg@pieeg.com)
+
