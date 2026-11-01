@@ -1,11 +1,56 @@
 # EasyEXG
+
+EasyEXG is a small analog front end for recording **EMG** (muscle), **ECG** (heart) and **EOG** (eye movement) signals
+with any microcontroller ADC (Arduino, ESP32, STM32, Raspberry Pi Pico with an ADC, …).
+It runs from **3.3 V or 5 V** and outputs one analog signal centred at VCC / 2.
+
+<p align="center">
+  <img src="Images/board_3d.gif" alt="EasyEXG board rotating in 3D" width="720">
+</p>
+
+## Board at a glance
+
+<p align="center">
+  <img src="Images/board_3d.png" alt="EasyEXG 3D model with dimensions" width="900">
+</p>
+
+*3D model of the board (revision EXG-Front v1) with the main dimensions. Orange lines are dimensions in mm.*
+
+What you see in the picture:
+
+| Label | Part | What it does |
+|---|---|---|
+| **J1** | 3.5 mm audio jack (CUI SJ-3523-SMT) | Plug for a standard 3-lead snap-electrode cable: Tip = IN+, Ring = IN−, Sleeve = REF/DRL |
+| **J2** | 3-pin header, 2.54 mm (optional) | Same three electrode signals as J1, for loose wires: + / − / REF. Use J1 **or** J2, not both |
+| **U1** | INA333 | Instrumentation amplifier, first gain stage (9.9×) |
+| **U2** | OPA4388 | Quad op-amp: mid-supply reference, driven right leg, high-pass + gain, 500 Hz low-pass |
+| **JP1** | Solder jumper "HI GAIN" | Open = 221× (EMG, EOG). Bridged with solder = 1 048× (ECG, EEG) |
+| **J3** | 4-pin header, 2.54 mm | 1 GND · 2 VCC · 3 OUT (to ADC) · 4 VREF |
+| **Ø2.2** | 2 × M2 mounting holes | 40.2 mm apart in X |
+
+| Dimension | Value |
+|---|---|
+| Board | 46.0 × 26.0 × 1.6 mm, corner radius 1.5 mm, 2-layer FR-4 |
+| With jack nose (sticks out 2.0 mm on the left) | 48.0 × 26.0 mm |
+| Mounting holes | 2 × Ø2.2 mm (M2) at (3.0, 16.2) and (43.2, 21.8) mm from the top-left corner |
+| Height: ICs / jack / pin headers | ≈ 1.2 mm / ≈ 5.0 mm / 8.5 mm above the board |
+| Bottom side | no components |
+
+Jack and header heights are typical catalogue values; check them against the parts you buy before designing an enclosure.
+
 ## Amplifier design and verification
 
-This board is an analog front end for **EMG** (muscle), **ECG** (heart) and **EOG** (eye) signals.
-Its amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388) and compared with the
+The amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388) and compared with the
 [BioAmp EXG Pill](https://github.com/upsidedownlabs/BioAmp-EXG-Pill) by Upside Down Labs, rebuilt with an OPA4388.
 
-![Simulated gain vs frequency](docs/amp_response.png)
+<p align="center">
+  <img src="Images/amp_response.png" alt="Simulated gain versus frequency" width="900">
+</p>
+
+*Simulated total gain versus frequency. Solid lines: EasyEXG with JP1 open (blue, 221×) and JP1 bridged (green, 1 048×).
+Dashed lines: BioAmp EXG Pill with an OPA4388, JP1 open (red) and closed (orange). Shaded areas mark the ECG band
+(0.5–40 Hz) and the EMG band (20–450 Hz). EasyEXG has a flat gain across both bands, from 0.16 Hz to 500 Hz,
+and rolls off steeply above 500 Hz.*
 
 ### Signal chain
 
@@ -22,7 +67,7 @@ Its amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388
 | JP1 | Use | Total gain | Band (−3 dB) | Max input before clipping (5 V / 3.3 V) |
 |---|---|---|---|---|
 | Open | EMG, EOG | **221×** | 0.16–501 Hz | 10.9 mV / 7.2 mV |
-| Closed | ECG, EEG | **1 048×** | 0.16–501 Hz | 2.3 mV / 1.5 mV |
+| Bridged | ECG, EEG | **1 048×** | 0.16–501 Hz | 2.3 mV / 1.5 mV |
 
 - ✅ Instrumentation amplifier gain is 9.9×, as designed.
 - ✅ The 0.16 Hz high-pass keeps the true ECG shape.
@@ -32,12 +77,12 @@ Its amplifier chain was simulated in ngspice with a 10 MHz op-amp model (OPA4388
 
 ### Comparison with BioAmp EXG Pill (OPA4388 version)
 
-| | BioAmp EXG Pill (OPA4388) | This board |
+| | BioAmp EXG Pill (OPA4388) | EasyEXG |
 |---|---|---|
 | Input amplifier | Two-op-amp INA, 11× | INA333, 9.9× |
 | Mains-hum rejection (CMRR) | ≈ 50 dB (set by 1 % resistor matching) | ≥ 100 dB |
 | Total gain, EMG setting | 1 976× (JP1 closed) | 221× (JP1 open) |
-| Total gain, high setting | 10 760× (JP1 open) | 1 048× (JP1 closed) |
+| Total gain, high setting | 10 760× (JP1 open) | 1 048× (JP1 bridged) |
 | Band, EMG setting | 3.3–891 Hz | 0.16–501 Hz |
 | Band, high setting | 3.2–171 Hz | 0.16–501 Hz |
 | Max EMG input before clipping (5 V) | 1.2 mV | 10.9 mV |
@@ -53,13 +98,12 @@ Notes on the BioAmp OPA4388 version:
 
 ### Design note: R8 = 10 MΩ
 
-R8 (DRL feedback resistor) should be **10 MΩ** (Yageo RC0603FR-0710ML, the same part as R3 and R4).
+R8 (DRL feedback resistor) is **10 MΩ** (Yageo RC0603FR-0710ML, the same part as R3 and R4).
 With 1 MΩ the right-leg drive is too weak: simulated 50 Hz common mode at the input is −46.8 dB, slightly worse
 than a plain direct reference (−51.9 dB). With 10 MΩ it improves to **−55.3 dB**, with peaking still below +2 dB.
 R9 stays at 390 kΩ, which limits the current into the body to about 13 µA at 5 V.
-This is a value change only; the PCB does not change.
 
-### Operating notes
+## Operating notes
 
 - Supply: 3.3 V or 5 V (absolute max 5.5 V). OUT rests at VCC / 2 with no signal.
 - Sample EMG at ≥ 1 kHz, ECG/EOG at ≥ 250 Hz.
