@@ -91,6 +91,15 @@ Electrode colours: **IN+** red · **IN−** yellow · **REF** green.
 
 *The waveforms in the animations are illustrations of typical signals, not recordings.*
 
+## Real EOG recording
+
+<p align="center">
+  <img src="Images/eog_left_right.png" alt="Real horizontal EOG recording in EasyEXG Studio: the trace steps down when the eyes look left and up when they look right" width="100%">
+</p>
+
+*A real horizontal EOG recording (JP1 open, 221×, 500 Hz) from EasyEXG Studio. Top: raw signal. Bottom: band-pass 0.1–10 Hz with a 50 Hz notch.
+The trace steps down when the eyes look **left** and up when they look **right**. Small sharp spikes on the raw trace are blinks.*
+
 ## How to start (Arduino)
 
 The animation shows the four steps: wiring, electrodes, uploading the sketch, and reading the signal.
